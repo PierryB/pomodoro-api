@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using System.Text;
 
-namespace pomodoro_api.Services;
+namespace pomodoro_api.Middleware;
 
 public class SwaggerBasicAuthMiddleware(RequestDelegate next, IConfiguration configuration)
 {

@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using pomodoro_api.Data;
+using pomodoro_api.Middleware;
 using pomodoro_api.Services;
 using System.Text;
 
