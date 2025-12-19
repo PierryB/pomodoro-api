@@ -18,7 +18,12 @@ public class TasksController(AppDbContext context) : ControllerBase
     private int GetUserId()
     {
         var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-        return int.Parse(userIdClaim ?? "0");
+        if (string.IsNullOrEmpty(userIdClaim))
+        {
+            throw new UnauthorizedAccessException("User ID claim is missing from token.");
+        }
+
+        return int.Parse(userIdClaim);
     }
 
     [HttpGet]
@@ -73,6 +78,8 @@ public class TasksController(AppDbContext context) : ControllerBase
 
         if (task.IsCompleted && existingTask.CompletedAt == null)
             existingTask.CompletedAt = DateTime.UtcNow;
+        else if (!task.IsCompleted)
+            existingTask.CompletedAt = null;
 
         await _context.SaveChangesAsync();
 
